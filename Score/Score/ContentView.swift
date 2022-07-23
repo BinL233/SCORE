@@ -23,7 +23,13 @@ struct ContentView: View {
             }
             
             RedScoreView(redS: self.RedS)
-            BlueScoreView(blueS: self.RedS)
+                .padding()
+                .offset(x: -300)
+            
+            BlueScoreView(blueS: self.BlueS)
+                .padding()
+                .offset(x: 300)
+            
             VStack{
                 Spacer()
                 HStack(spacing:50) {
