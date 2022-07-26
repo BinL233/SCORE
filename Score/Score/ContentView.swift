@@ -9,8 +9,9 @@ import SwiftUI
 
 
 struct ContentView: View {
-    @State var RedS = 0
-    @State var BlueS = 0
+    @State private var showingConfirmation = false
+    @State private var RedS = 0
+    @State private var BlueS = 0
     
     let red = UIColor(displayP3Red: 0.8, green: 0.35, blue: 0.35, alpha: 0.94)
     let blue = UIColor(displayP3Red: 0.35, green: 0.35, blue: 0.75, alpha: 0.94)
@@ -18,10 +19,12 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             HStack{
+                //Background
                 Color(red).ignoresSafeArea()
                 Color(blue).ignoresSafeArea()
             }
             
+            //Score
             RedScoreView(redS: self.RedS)
                 .padding()
                 .offset(x: -300)
@@ -32,84 +35,126 @@ struct ContentView: View {
             
             VStack{
                 Spacer()
-                HStack(spacing:50) {
+                //Buttons
+                HStack(spacing:105) {
                     VStack{
-                        HStack{
-                            Button("+1") {self.RedS+=1}
-                                .font(.system(size: 26))
-                                .padding(.horizontal,20)
-                                .padding(.vertical,10)
-                                .foregroundColor(.black)
-                                .background(Color(.white))
-                                .cornerRadius(20)
-                            
-                            Button("-1") {self.RedS-=1}
-                                .font(.system(size: 26))
-                                .padding(.horizontal,20)
-                                .padding(.vertical,10)
-                                .foregroundColor(.black)
-                                .background(Color(.white))
-                                .cornerRadius(20)
-                        }
-                        
-                        HStack{
-                            
-                            Button("+10") {self.RedS+=10}
-                                .font(.system(size: 26))
+                        HStack(spacing:40){
+                            Button("Reset") {showingConfirmation = true}
+                                .font(.system(size: 30))
                                 .padding(.horizontal,12.5)
                                 .padding(.vertical,10)
                                 .foregroundColor(.black)
                                 .background(Color(.white))
                                 .cornerRadius(20)
-                            
-                            Button("-10") {self.RedS-=10}
-                                .font(.system(size: 26))
-                                .padding(.horizontal,12.5)
-                                .padding(.vertical,10)
-                                .foregroundColor(.black)
-                                .background(Color(.white))
-                                .cornerRadius(20)
+                                .confirmationDialog("Reset Red Score", isPresented: $showingConfirmation) {
+                                        Button("Yes") {self.RedS = 0}
+                                        Button("Cancel", role: .cancel) { }
+                                    }
+                                message: {
+                                        Text("Are you sure?")
+                                    }
+                            VStack{
+                                HStack{
+                                    Button("+1") {self.RedS+=1}
+                                        .font(.system(size: 28))
+                                        .padding(.horizontal,20)
+                                        .padding(.vertical,10)
+                                        .foregroundColor(.black)
+                                        .background(Color(.white))
+                                        .cornerRadius(20)
+                                    
+                                    Button("-1") {self.RedS-=1}
+                                        .font(.system(size: 28))
+                                        .padding(.horizontal,21)
+                                        .padding(.vertical,10)
+                                        .foregroundColor(.black)
+                                        .background(Color(.white))
+                                        .cornerRadius(20)
+                                }
+                                
+                                HStack{
+                                    
+                                    Button("+10") {self.RedS+=10}
+                                        .font(.system(size: 28))
+                                        .padding(.horizontal,11.5)
+                                        .padding(.vertical,10)
+                                        .foregroundColor(.black)
+                                        .background(Color(.white))
+                                        .cornerRadius(20)
+                                    
+                                    Button("-10") {self.RedS-=10}
+                                        .font(.system(size: 28))
+                                        .padding(.horizontal,12)
+                                        .padding(.vertical,10)
+                                        .foregroundColor(.black)
+                                        .background(Color(.white))
+                                        .cornerRadius(20)
+                                    
+                                }
+                            }
                         }
                     }
                     .padding()
                     
                     VStack{
-                        HStack{
-                            Button("+1") {self.BlueS+=1}
-                                .font(.system(size: 26))
-                                .padding(.horizontal,20)
-                                .padding(.vertical,10)
-                                .foregroundColor(.black)
-                                .background(Color(.white))
-                                .cornerRadius(20)
-                            
-                            Button("-1") {self.BlueS-=1}
-                                .font(.system(size: 26))
-                                .padding(.horizontal,20)
-                                .padding(.vertical,10)
-                                .foregroundColor(.black)
-                                .background(Color(.white))
-                                .cornerRadius(20)
-                        }
-                        HStack{
-                            Button("+10") {self.BlueS+=10}
-                                .font(.system(size: 26))
+                        HStack(spacing:40){
+                            VStack{
+                                HStack{
+                                    Button("+1") {self.BlueS+=1}
+                                        .font(.system(size: 28))
+                                        .padding(.horizontal,20)
+                                        .padding(.vertical,10)
+                                        .foregroundColor(.black)
+                                        .background(Color(.white))
+                                        .cornerRadius(20)
+                                    
+                                    Button("-1") {self.BlueS-=1}
+                                        .font(.system(size: 28))
+                                        .padding(.horizontal,21)
+                                        .padding(.vertical,10)
+                                        .foregroundColor(.black)
+                                        .background(Color(.white))
+                                        .cornerRadius(20)
+                                }
+                                HStack{
+                                    Button("+10") {self.BlueS+=10}
+                                        .font(.system(size: 28))
+                                        .padding(.horizontal,11.5)
+                                        .padding(.vertical,10)
+                                        .foregroundColor(.black)
+                                        .background(Color(.white))
+                                        .cornerRadius(20)
+                                    
+                                    Button("-10") {self.BlueS-=10}
+                                        .font(.system(size: 28))
+                                        .padding(.horizontal,12)
+                                        .padding(.vertical,10)
+                                        .foregroundColor(.black)
+                                        .background(Color(.white))
+                                        .cornerRadius(20)
+                                    }
+                                }
+                            Button("Reset") {showingConfirmation = true}
+                                .font(.system(size: 30))
                                 .padding(.horizontal,12.5)
                                 .padding(.vertical,10)
                                 .foregroundColor(.black)
                                 .background(Color(.white))
                                 .cornerRadius(20)
-                            
-                            Button("-10") {self.BlueS-=10}
-                                .font(.system(size: 26))
-                                .padding(.horizontal,12.5)
-                                .padding(.vertical,10)
-                                .foregroundColor(.black)
-                                .background(Color(.white))
-                                .cornerRadius(20)
+                                .onTapGesture {
+                                    showingConfirmation = true
+                                }
+                                .confirmationDialog("Reset Blue Score", isPresented: $showingConfirmation) {
+                                        Button("Yes") {self.BlueS = 0}
+                                        Button("Cancel", role: .cancel) { }
+                                    }
+                                message: {
+                                        Text("Are you sure?")
+                                    }
                         }
                     }
                     .padding()
+                    
                 }
                 .padding()
             }
@@ -146,6 +191,17 @@ struct BlueScoreView: View {
 }
 
 
+
+
+
+struct MenuView: View {
+    var body: some View {
+        Menu("Menu") {
+            Button("1v1", action: {})
+            Button("Roll", action: {})
+        }
+    }
+}
 
 
 
