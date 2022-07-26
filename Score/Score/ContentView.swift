@@ -47,7 +47,9 @@ struct ContentView: View {
                                 .background(Color(.white))
                                 .cornerRadius(20)
                                 .confirmationDialog("Reset Red Score", isPresented: $showingConfirmation) {
-                                        Button("Yes") {self.RedS = 0}
+                                        Button("Yes") {
+                                            self.RedS = 0
+                                    }
                                         Button("Cancel", role: .cancel) { }
                                     }
                                 message: {
@@ -141,11 +143,10 @@ struct ContentView: View {
                                 .foregroundColor(.black)
                                 .background(Color(.white))
                                 .cornerRadius(20)
-                                .onTapGesture {
-                                    showingConfirmation = true
-                                }
                                 .confirmationDialog("Reset Blue Score", isPresented: $showingConfirmation) {
-                                        Button("Yes") {self.BlueS = 0}
+                                        Button("Yes") {
+                                            self.BlueS = 0
+                                        }
                                         Button("Cancel", role: .cancel) { }
                                     }
                                 message: {
