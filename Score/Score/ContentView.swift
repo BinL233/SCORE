@@ -38,24 +38,7 @@ struct ContentView: View {
                 //Buttons
                 HStack(spacing:105) {
                     VStack{
-                        HStack(spacing:40){
-                            Button("Reset") {showingConfirmation = true}
-                                .font(.system(size: 30))
-                                .padding(.horizontal,12.5)
-                                .padding(.vertical,10)
-                                .foregroundColor(.black)
-                                .background(Color(.white))
-                                .cornerRadius(20)
-                                .confirmationDialog("Reset Red Score", isPresented: $showingConfirmation) {
-                                        Button("Yes") {
-                                            self.RedS = 0
-                                    }
-                                        Button("Cancel", role: .cancel) { }
-                                    }
-                                message: {
-                                        Text("Are you sure?")
-                                    }
-                            VStack{
+                            VStack{ //Red Buttons
                                 HStack{
                                     Button("+1") {self.RedS+=1}
                                         .font(.system(size: 28))
@@ -93,13 +76,32 @@ struct ContentView: View {
                                         .cornerRadius(20)
                                     
                                 }
-                            }
+                            
                         }
                     }
                     .padding()
                     
+                    // Reset Button
+                    Button("Reset") {showingConfirmation = true}
+                        .font(.system(size: 30))
+                        .padding(.horizontal,15)
+                        .padding(.vertical,13)
+                        .foregroundColor(.black)
+                        .background(Color(.white))
+                        .cornerRadius(20)
+                        .confirmationDialog("Reset Score", isPresented: $showingConfirmation) {
+                                Button("Yes") {
+                                    self.BlueS = 0
+                                    self.RedS = 0
+                                }
+                                Button("No", role: .cancel) {}
+                            }
+                        message: {
+                                Text("Are you sure?")
+                            }
+                    
                     VStack{
-                        HStack(spacing:40){
+                        //Blue buttons
                             VStack{
                                 HStack{
                                     Button("+1") {self.BlueS+=1}
@@ -135,23 +137,7 @@ struct ContentView: View {
                                         .background(Color(.white))
                                         .cornerRadius(20)
                                     }
-                                }
-                            Button("Reset") {showingConfirmation = true}
-                                .font(.system(size: 30))
-                                .padding(.horizontal,12.5)
-                                .padding(.vertical,10)
-                                .foregroundColor(.black)
-                                .background(Color(.white))
-                                .cornerRadius(20)
-                                .confirmationDialog("Reset Blue Score", isPresented: $showingConfirmation) {
-                                        Button("Yes") {
-                                            self.BlueS = 0
-                                        }
-                                        Button("Cancel", role: .cancel) { }
-                                    }
-                                message: {
-                                        Text("Are you sure?")
-                                    }
+                                
                         }
                     }
                     .padding()
