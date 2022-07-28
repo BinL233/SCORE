@@ -12,6 +12,8 @@ struct ContentView: View {
     @State private var showingConfirmation = false
     @State private var RedS = 0
     @State private var BlueS = 0
+    @State private var RedP: CGFloat = 0
+    @State private var BlueP: CGFloat = 0
     
     let red = UIColor(displayP3Red: 0.8, green: 0.35, blue: 0.35, alpha: 0.94)
     let blue = UIColor(displayP3Red: 0.35, green: 0.35, blue: 0.75, alpha: 0.94)
@@ -33,10 +35,38 @@ struct ContentView: View {
                 .padding()
                 .offset(x: 300)
             
+            //Roll Point
+            Rectangle()
+                .foregroundColor(Color.black.opacity(0))
+                .frame(width: 200, height: 200)
+                .modifier(RollingPointsAnimation(number: RedP))
+                .offset(x: -300, y: -200)
+                .padding()
+            
+            Rectangle()
+                .foregroundColor(Color.black.opacity(0))
+                .frame(width: 200, height: 200)
+                .modifier(RollingPointsAnimation(number: BlueP))
+                .offset(x: 300, y: -200)
+                .padding()
+            
             VStack{
                 Spacer()
                 //Buttons
-                HStack(spacing:105) {
+                HStack(spacing:88) {
+                    //Roll
+                    Button("Roll") {
+                        withAnimation(Animation.easeInOut(duration: 3)){
+                            RedP = CGFloat(Int.random(in: 0..<100))
+                        }
+                        
+                    }
+                        .font(.system(size: 28))
+                        .padding(.horizontal,20)
+                        .padding(.vertical,10)
+                        .foregroundColor(.black)
+                        .background(Color(.white))
+                        .cornerRadius(20)
                     VStack{
                             VStack{ //Red Buttons
                                 HStack{
@@ -139,9 +169,21 @@ struct ContentView: View {
                                     }
                                 
                         }
+                    
                     }
                     .padding()
-                    
+                    //Roll
+                    Button("Roll") {
+                        withAnimation(Animation.easeInOut(duration: 3)){
+                            BlueP = CGFloat(Int.random(in: 0..<100))
+                        }
+                    }
+                        .font(.system(size: 28))
+                        .padding(.horizontal,20)
+                        .padding(.vertical,10)
+                        .foregroundColor(.black)
+                        .background(Color(.white))
+                        .cornerRadius(20)
                 }
                 .padding()
             }
@@ -178,6 +220,28 @@ struct BlueScoreView: View {
 }
 
 
+//Rolling Animation
+struct RollingPointsAnimation: AnimatableModifier {
+    var number : CGFloat
+    var animatableData: CGFloat{
+        get {
+            number
+        }
+        
+        set {
+            number = newValue
+        }
+    }
+    func body(content: Content) -> some View {
+        return content.overlay(
+            Text("\(Int(number))")
+                .font(.system(size: 50))
+                .fontWeight(.bold)
+                .foregroundColor(Color.white)
+                .multilineTextAlignment(.center)
+        )
+    }
+}
 
 
 
