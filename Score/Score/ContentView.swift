@@ -123,6 +123,8 @@ struct ContentView: View {
                                 Button("Yes") {
                                     self.BlueS = 0
                                     self.RedS = 0
+                                    self.BlueP = 0
+                                    self.RedP = 0
                                 }
                                 Button("No", role: .cancel) {}
                             }
